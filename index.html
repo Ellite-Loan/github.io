@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="Loans, Quick Loans, Easy Loans, Finance" />
+    <meta
+      name="description"
+      content="Get loans quickly and easily with Blessed Elite Loans"
+    />
+    <title>Blessed Elite Loans</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #007bff;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .loan-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-left: 5px solid #007bff;
+        background: #f1f3f5;
+        border-radius: 5px;
+      }
+      .loan-section h2 {
+        color: #0056b3;
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .contact,
+      .apply-btn {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .apply-btn button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .dark-mod {
+        background-color: #1a1a1a;
+        color: white;
+      }
+      .toggle-dark-mod {
+        cursor: pointer;
+        margin-top: 10px;
+        background: #333;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+      }
+      img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+        float: left;
+        margin-right: 15px;
+      }
+      .calculator {
+        margin-top: 20px;
+        padding: 20px;
+        background: #f1f3f5;
+        border-radius: 5px;
+        text-align: center;
+      }
+      .calculator input,
+      .calculator select {
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+      }
+      .calculator button {
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Blessed Elite Loans</h1>
+      <button class="toggle-dark-mod" onclick="toggleDarkMod()">
+        Toggle Dark Mod
+      </button>
+      <img src="Images/download.webp" alt="Home Image" />
+      <p>
+        We offer loans in four categories to suit your financial needs with fast
+        access, flexible repayment, and fair interest rates.
+      </p>
+
+      <div class="loan-section">
+        <h2>One Week Loans - Quick Cash, Fast Relief!</h2>
+        <p>
+          In need of urgent funds? Our 1-week loans are perfect for unexpected
+          situations where time is crucial. With an easy and efficient process,
+          you can get the funds you need in no time. Pay back in just 7 days
+          with a competitive 15% interest rate.
+        </p>
+      </div>
+
+      <div class="loan-section">
+        <h2>Two Week Loans - Flexibility with Fair Interest</h2>
+        <p>
+          For those who need a bit of extra breathing room, our 2-week loans
+          offer the perfect balance between time and affordability. With a 20%
+          interest rate, you get quick access to funds with flexible terms.
+        </p>
+      </div>
+
+      <div class="loan-section">
+        <h2>Three Week Loans - Manage Your Payments with Ease</h2>
+        <p>
+          Facing a larger expense? Our 3-week loans provide ample time to pay
+          back with an attractive 25% interest rate. Get fast access to cash and
+          repay within 21 days stress-free.
+        </p>
+      </div>
+
+      <div class="loan-section">
+        <h2>One Month Loans - Extended Time for Bigger Needs</h2>
+        <p>
+          For larger expenses, our 1-month loans offer a 30% interest rate with
+          a 30-day repayment term. Perfect for home renovations, medical
+          procedures, or other significant financial needs.
+        </p>
+      </div>
+
+      <div class="calculator">
+        <h2>Loan Calculator</h2>
+        <label for="amount">Loan Amount:</label>
+        <input
+          type="number"
+          id="amount"
+          placeholder="Enter amount"
+          oninput="calculateLoan()"
+        />
+        <label for="duration">Duration:</label>
+        <select id="duration" onchange="calculateLoan()">
+          <option value="1">1 Week</option>
+          <option value="2">2 Weeks</option>
+          <option value="3">3 Weeks</option>
+          <option value="4">1 Month</option>
+        </select>
+        <p id="result"></p>
+      </div>
+
+      <div class="apply-btn">
+        <button onclick="alert('Loan application form coming soon!')">
+          Apply Now
+        </button>
+      </div>
+
+      <div class="contact">
+        <p><span>&#9743;</span> 265884385975 / 994785476</p>
+        <p>
+          <span>&#128233;</span>
+          <a href="mailto:safariblessings6@gmail.com"
+            >safariblessings6@gmail.com</a
+          >
+        </p>
+        <p><a href="https://wa.me/265884385975">Chat on WhatsApp</a></p>
+      </div>
+    </div>
+
+    <script>
+      function toggleDarkMod() {
+        document.body.classList.toggle("dark-mod");
+      }
+
+      function calculateLoan() {
+        let amount = document.getElementById("amount").value;
+        let duration = document.getElementById("duration").value;
+        if (!amount) {
+          document.getElementById("result").innerText = "";
+          return;
+        }
+        let interestRates = { 1: 0.15, 2: 0.2, 3: 0.25, 4: 0.3 };
+        let interest = amount * interestRates[duration];
+        let total = parseFloat(amount) + interest;
+        document.getElementById(
+          "result"
+        ).innerText = `Total Repayment: $${total.toFixed(2)}`;
+      }
+    </script>
+  </body>
+</html>
