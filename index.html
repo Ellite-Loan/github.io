@@ -24,33 +24,18 @@
         background-color: #f8f9fa;
         color: #333;
         padding: 20px;
+        display: flex;
       }
-      .container {
-        max-width: 100%;
-        margin: auto;
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
+
       h1 {
         text-align: center;
-        color: #007bff;
+        color: hsl(46, 100%, 50%);
         font-size: 28px;
         font-weight: 600;
         margin-bottom: 15px;
+        font-style: oblique;
       }
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #007bff;
-        padding: 10px 20px;
-        color: white;
-        border-radius: 8px;
-        margin-bottom: 20px;
-      }
+
       .header a {
         color: white;
         text-decoration: none;
@@ -63,7 +48,7 @@
       .loan-section {
         margin-bottom: 20px;
         padding: 15px;
-        border-left: 5px solid #007bff;
+        border-left: 10px solid #007bff; /* Increased the blue line */
         background: #f1f3f5;
         border-radius: 5px;
       }
@@ -119,26 +104,63 @@
         cursor: pointer;
         width: 100%;
       }
+
+      /* Left Tab Styles */
+      .left-tab {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 220px;
+        padding: 20px;
+        background-color: #ff5e5e;
+        color: white;
+        border-radius: 0 10px 10px 0;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .left-tab a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .left-tab a:hover {
+        text-decoration: underline;
+      }
+
+      .left-tab h3 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- New Header Section with Cool Features -->
+      <!-- Header Section -->
       <div class="header">
         <div>
           <a href="#">Feedback</a>
-          <a href="#">1 Week Loans</a>
-          <a href="#">2 Week Loans</a>
-          <a href="#">3 Week Loans</a>
-          <a href="#">1 Month Loans</a>
+          <a href="#">One Week Loans</a>
+          <a href="#">Two Week Loans</a>
+          <a href="#">Three Week Loans</a>
+          <a href="#">One Month Loans</a>
         </div>
         <div>
           <a href="#calculator">Loan Calculator</a>
         </div>
       </div>
 
-      <h1>Blessed Elite Loans</h1>
       <img src="Images/download.webp" alt="Home Image" />
+
+      <h1>Welcome to Elite Loans</h1>
+
       <p>
         We offer loans in four categories to suit your financial needs with fast
         access, flexible repayment, and fair interest rates.
@@ -192,10 +214,10 @@
         />
         <label for="duration">Duration:</label>
         <select id="duration" onchange="calculateLoan()">
-          <option value="1">1 Week</option>
-          <option value="2">2 Weeks</option>
-          <option value="3">3 Weeks</option>
-          <option value="4">1 Month</option>
+          <option value="1">One Week</option>
+          <option value="2">Two Weeks</option>
+          <option value="3">Three Weeks</option>
+          <option value="4">One Month</option>
         </select>
         <p id="result"></p>
       </div>
