@@ -143,11 +143,11 @@
           formObject[key] = value;
         });
 
-        let googleScriptURL = "https://script.google.com/macros/s/AKfycbx3KZViL1VjegKS_Cb8qzFssl9nFxqNdD-AvtuUIGIfW5ouOJA03vim9jSGK2tj7ZpnHw/exec"; // Your Google Script URL
+        let googleScriptURL = "https://script.google.com/macros/s/AKfycbyyynkpK1xmTvtR5Y7UiTb_MgyU1g9fakKTEi411X1HKdbb8KFvsis3pmKdberX1qVtgg/exec"; // Your Google Script URL
 
         fetch(googleScriptURL, {
           method: "POST",
-          mode: "no-cors",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
           },
