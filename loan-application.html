@@ -18,8 +18,7 @@
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
-      h1,
-      h2 {
+      h1 {
         text-align: center;
         color: #007bff;
       }
@@ -51,11 +50,12 @@
       button:hover {
         background: #0056b3;
       }
-      #terms-and-conditions {
-        background: #f1f1f1;
-        padding: 15px;
-        margin-top: 20px;
-        border-radius: 8px;
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+      }
+      .checkbox-container input {
+        margin-right: 5px;
       }
     </style>
   </head>
@@ -108,52 +108,7 @@
           <span id="repaymentAmount">MWK 0</span>
         </p>
 
-        <script>
-          function calculateRepayment() {
-            let amount = document.getElementById("loanAmount").value;
-            let duration = document.getElementById("loanDuration").value;
-            let error = document.getElementById("loanError");
-            let repayment = document.getElementById("repaymentAmount");
-
-            if (!amount) {
-              repayment.innerText = "MWK 0";
-              error.innerText = "";
-              return;
-            }
-
-            amount = parseInt(amount);
-
-            // Loan amount validation
-            if (amount < 20000 || amount > 200000) {
-              error.innerText =
-                "Loan amount must be between 20,000 MWK and 200,000 MWK.";
-              repayment.innerText = "MWK 0";
-              return;
-            } else {
-              error.innerText = "";
-            }
-
-            // Interest rates for different durations
-            let interestRates = { 1: 0.15, 2: 0.2, 3: 0.25, 4: 0.3 };
-            let interest = amount * interestRates[duration];
-            let totalRepayment = amount + interest;
-
-            repayment.innerText = `MWK ${totalRepayment.toLocaleString()}`;
-          }
-        </script>
-
-        <label for="loanPurpose">Purpose of Loan</label>
-        <textarea id="loanPurpose" name="loanPurpose" required></textarea>
-
-        <!-- Employment & Bank Details -->
-        <label for="employmentStatus">Employment Status</label>
-        <select id="employmentStatus" name="employmentStatus" required>
-          <option value="employed">Employed</option>
-          <option value="self-employed">Self-employed</option>
-          <option value="business">Business</option>
-          <option value="unemployed">Unemployed</option>
-        </select>
-
+        <!-- Bank Details -->
         <label for="bankName">Bank Name</label>
         <select id="bankName" name="bankName" required>
           <option value="FDH">FDH</option>
@@ -169,92 +124,72 @@
         <label for="accountNumber">Bank Account Number</label>
         <input type="text" id="accountNumber" name="accountNumber" required />
 
-        <!-- Collateral (Required) -->
-        <label for="collateral"
-          >Do you have collateral to offer for this loan?</label
-        >
-        <select id="collateral" name="collateral" required>
-          <option value="yes">Yes</option>
-        </select>
-
-        <label for="collateralType">Type of Collateral</label>
-        <input type="text" id="collateralType" name="collateralType" required />
-
-        <!-- Terms and Agreement -->
-        <div id="terms-and-conditions">
-          <h2>Terms and Conditions</h2>
-          <p>
-            By submitting your loan application, you agree to the following
-            terms and conditions:
-          </p>
-          <ul>
-            <li>Applicants must be at least 18 years old.</li>
-            <li>
-              All information provided in the application must be accurate and
-              complete.
-            </li>
-            <li>
-              Loan approval is subject to verification of provided information
-              and eligibility criteria.
-            </li>
-            <li>
-              Loan interest rates and repayment terms are subject to the loan
-              duration selected.
-            </li>
-            <li>
-              Failure to comply with loan terms may result in penalties or legal
-              action.
-            </li>
-            <li>
-              All personal and financial information provided will be handled
-              with the utmost confidentiality in accordance with privacy laws.
-            </li>
-          </ul>
-        </div>
-
-        <label>
+        <div class="checkbox-container">
           <input type="checkbox" name="agreement" required />
-          I agree to the loan terms and conditions.
-        </label>
+          <label>I agree to the loan terms and conditions.</label>
+        </div>
 
         <button type="submit">Submit Application</button>
       </form>
     </div>
 
     <script>
-      document
-        .getElementById("loanForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
+      document.getElementById("loanForm").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-          let formData = new FormData(this);
-          let data = {};
-          formData.forEach((value, key) => {
-            data[key] = value;
-          });
-
-          fetch(
-            "https://script.google.com/macros/s/AKfycbx3KZViL1VjegKS_Cb8qzFssl9nFxqNdD-AvtuUIGIfW5ouOJA03vim9jSGK2tj7ZpnHw/exec",
-            {
-              method: "POST",
-              body: JSON.stringify(data),
-              headers: { "Content-Type": "application/json" },
-            }
-          )
-            .then((response) => response.text())
-            .then((data) => {
-              if (data.includes("Success")) {
-                alert("✅ Application Submitted Successfully!");
-                document.getElementById("loanForm").reset();
-              } else {
-                alert("⚠ Error: " + data);
-              }
-            })
-            .catch((error) => {
-              alert("❌ Error submitting application: " + error);
-              console.error("Submission error:", error);
-            });
+        let formData = new FormData(this);
+        let formObject = {};
+        formData.forEach((value, key) => {
+          formObject[key] = value;
         });
+
+        let googleScriptURL = "https://script.google.com/macros/s/AKfycbx3KZViL1VjegKS_Cb8qzFssl9nFxqNdD-AvtuUIGIfW5ouOJA03vim9jSGK2tj7ZpnHw/exec"; // Your Google Script URL
+
+        fetch(googleScriptURL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formObject),
+        })
+          .then(() => {
+            alert("Your loan application has been submitted successfully!");
+            document.getElementById("loanForm").reset();
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+
+      function calculateRepayment() {
+        let amount = document.getElementById("loanAmount").value;
+        let duration = document.getElementById("loanDuration").value;
+        let error = document.getElementById("loanError");
+        let repayment = document.getElementById("repaymentAmount");
+
+        if (!amount) {
+          repayment.innerText = "MWK 0";
+          error.innerText = "";
+          return;
+        }
+
+        amount = parseInt(amount);
+
+        if (amount < 20000 || amount > 200000) {
+          error.innerText =
+            "Loan amount must be between 20,000 MWK and 200,000 MWK.";
+          repayment.innerText = "MWK 0";
+          return;
+        } else {
+          error.innerText = "";
+        }
+
+        let interestRates = { 1: 0.15, 2: 0.2, 3: 0.25, 4: 0.3 };
+        let interest = amount * interestRates[duration];
+        let totalRepayment = amount + interest;
+
+        repayment.innerText = `MWK ${totalRepayment.toLocaleString()}`;
+      }
     </script>
   </body>
 </html>
+
