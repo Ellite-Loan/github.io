@@ -60,28 +60,29 @@
     </style>
   </head>
   <body>
+    <form action="https://sheetdb.io/api/v1/e4m7mvlqs60k8" method="post" id="sheetdb-form">
     <div class="form-container">
       <h1>Loan Application Form</h1>
       <form id="loanForm">
         <!-- Basic Information -->
         <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="fullName" required />
+        <input type="text" id="fullName" name="data[fullName]" required />
 
         <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required />
+        <input type="email" id="email" name="data[email]" required />
 
         <label for="phone">Phone Number</label>
-        <input type="text" id="phone" name="phone" required />
+        <input type="text" id="phone" name="data[phone]" required />
 
         <label for="address">Residential Address</label>
-        <textarea id="address" name="address" required></textarea>
+        <textarea id="address" name="data[address]" required></textarea>
 
         <!-- Loan Details -->
         <label for="loanAmount">Loan Amount Requested (MWK)</label>
         <input
           type="number"
           id="loanAmount"
-          name="loanAmount"
+          name="data[loanAmount]"
           min="20000"
           max="200000"
           placeholder="Enter amount (20,000 - 200,000)"
@@ -93,7 +94,7 @@
         <label for="loanDuration">Loan Duration</label>
         <select
           id="loanDuration"
-          name="loanDuration"
+          name="data[loanDuration]"
           onchange="calculateRepayment()"
           required
         >
@@ -110,7 +111,7 @@
 
         <!-- Bank Details -->
         <label for="bankName">Bank Name</label>
-        <select id="bankName" name="bankName" required>
+        <select id="bankName" name="data[bankName]" required>
           <option value="FDH">FDH</option>
           <option value="NBS">NBS</option>
           <option value="FCB">FCB</option>
@@ -119,13 +120,13 @@
         </select>
 
         <label for="bankAccount">Bank Account Name</label>
-        <input type="text" id="bankAccount" name="bankAccount" required />
+        <input type="text" id="bankAccount" name="data[bankAccount]" required />
 
         <label for="accountNumber">Bank Account Number</label>
-        <input type="text" id="accountNumber" name="accountNumber" required />
+        <input type="text" id="accountNumber" name="data[accountNumber]" required />
 
         <div class="checkbox-container">
-          <input type="checkbox" name="agreement" required />
+          <input type="checkbox" name="data[agreement]" required />
           <label>I agree to the loan terms and conditions.</label>
         </div>
 
@@ -134,63 +135,19 @@
     </div>
 
     <script>
-      document.getElementById("loanForm").addEventListener("submit", function (e) {
+      vor form = document.getElementById('sheetdb Form');
+      form.addEventListener("submit", e => {
         e.preventDefault();
-
-        let formData = new FormData(this);
-        let formObject = {};
-        formData.forEach((value, key) => {
-          formObject[key] = value;
-        });
-        formObject["repaymentAmount"] = document.getElementById("repaymentAmount").innerText.replace("MWK ", "");
-
-
-        let googleScriptURL = "https://script.google.com/macros/s/AKfycbzFHf2Uh2VgnFF2X1VEZBvT84XntJuXq81FGxPNOgbR7aMgkSaarG2-z4gqvQYGMT9JNA/exec"; // Your Google Script URL
-
-        fetch(googleScriptURL, {
+        fetch(form.action, {
           method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formObject),
-        })
-          .then(() => {
-            alert("Your loan application has been submitted successfully!");
-            document.getElementById("loanForm").reset();
-          })
-          .catch((error) => console.error("Error!", error.message));
+          body: new FormData(document.getElementById('sheetdb Form')),
+        }).then(
+          response => response.json()
+            ).then((html) => {
+          // you can put any js code here
+          windows.open('d.html','_blank');
+        });
       });
-
-      function calculateRepayment() {
-        let amount = document.getElementById("loanAmount").value;
-        let duration = document.getElementById("loanDuration").value;
-        let error = document.getElementById("loanError");
-        let repayment = document.getElementById("repaymentAmount");
-
-        if (!amount) {
-          repayment.innerText = "MWK 0";
-          error.innerText = "";
-          return;
-        }
-
-        amount = parseInt(amount);
-
-        if (amount < 20000 || amount > 200000) {
-          error.innerText =
-            "Loan amount must be between 20,000 MWK and 200,000 MWK.";
-          repayment.innerText = "MWK 0";
-          return;
-        } else {
-          error.innerText = "";
-        }
-
-        let interestRates = { 1: 0.15, 2: 0.2, 3: 0.25, 4: 0.3 };
-        let interest = amount * interestRates[duration];
-        let totalRepayment = amount + interest;
-
-        repayment.innerText = `MWK ${totalRepayment.toLocaleString()}`;
-      }
     </script>
   </body>
 </html>
