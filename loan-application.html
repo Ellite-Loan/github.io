@@ -142,12 +142,13 @@
         formData.forEach((value, key) => {
           formObject[key] = value;
         });
+        formObject["repaymentAmount"] = document.getElementById("repaymentAmount").innerText.replace("MWK ", "");
+
 
         let googleScriptURL = "https://script.google.com/macros/s/AKfycbxTvFd3R7w4NMvbNubkaRO4PXIvEHuV-T7gN_GKPagYHUCT7jD4BoCmvY8Cg28196SnXA/exec"; // Your Google Script URL
 
         fetch(googleScriptURL, {
           method: "POST",
-          mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
           },
