@@ -19,7 +19,6 @@
       border-radius: 15px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
       animation: fadeIn 0.8s ease-in-out;
-      position: relative;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -62,7 +61,6 @@
       cursor: pointer;
       transition: background 0.3s, transform 0.2s;
       width: 100%;
-      position: relative;
     }
     button:hover {
       background: linear-gradient(90deg, #0056b3, #0095d9);
@@ -97,31 +95,6 @@
       color: red;
       margin-top: 4px;
     }
-    /* Spinner Styles */
-    #spinner {
-      display: none;
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(255,255,255,0.8);
-      z-index: 1000;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .spinner-border {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #007bff;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
 <body>
@@ -144,7 +117,15 @@
 
       <!-- Loan Details -->
       <label for="loanAmount">Loan Amount Requested (MWK)</label>
-      <input type="number" id="loanAmount" name="data[loanAmount]" min="20000" max="200000" placeholder="Enter amount (20,000 - 200,000)" required />
+      <input
+        type="number"
+        id="loanAmount"
+        name="data[loanAmount]"
+        min="20000"
+        max="200000"
+        placeholder="Enter amount (20,000 - 200,000)"
+        required
+      />
       <p id="loanError"></p>
 
       <label for="loanDuration">Loan Duration</label>
@@ -185,8 +166,6 @@
     </form>
 
     <div id="successMsg">✅ Your application has been submitted successfully!</div>
-
-    <div id="spinner"><div class="spinner-border"></div></div>
   </div>
 
   <script>
@@ -222,11 +201,8 @@
       document.getElementById("loanDuration").addEventListener("change", calculateRepayment);
 
       const form = document.getElementById("sheetdb-form");
-      const spinner = document.getElementById("spinner");
-
       form.addEventListener("submit", function(e) {
         e.preventDefault();
-        spinner.style.display = "flex"; // show spinner
         fetch(form.action, {
           method: "POST",
           body: new FormData(form),
@@ -236,14 +212,12 @@
           form.reset();
           document.getElementById("repaymentAmount").textContent = "MWK 0";
           document.getElementById("repaymentHidden").value = 0;
-          spinner.style.display = "none"; // hide spinner
           document.getElementById("successMsg").style.display = "block";
           setTimeout(() => {
             document.getElementById("successMsg").style.display = "none";
           }, 4000);
         })
         .catch(err => {
-          spinner.style.display = "none";
           console.error("Error:", err);
           alert("Error submitting form. Please try again.");
         });
