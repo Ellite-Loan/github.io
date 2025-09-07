@@ -188,35 +188,45 @@
       }
 
       if (duration > 0) {
-        // Formula: add 10% per week
-        const repayment = amount + (amount * 0.1 * duration);
+        // Formula: add 10% per week, or 25% flat for 1 month
+        let repayment;
+        if (duration === 4) {
+          repayment = amount + (amount * 0.25);
+        } else {
+          repayment = amount + (amount * 0.1 * duration);
+        }
         repaymentSpan.textContent = "MWK " + repayment.toLocaleString();
       } else {
         repaymentSpan.textContent = "MWK 0";
       }
     }
 
-    // Attach events for live update
-    document.getElementById("loanAmount").addEventListener("input", calculateRepayment);
-    document.getElementById("loanDuration").addEventListener("change", calculateRepayment);
+    // Attach events only after page is loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("loanAmount").addEventListener("input", calculateRepayment);
+      document.getElementById("loanDuration").addEventListener("change", calculateRepayment);
 
-    // Handle form submission to Google Sheet
-    const form = document.getElementById("sheetdb-form");
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-      })
-      .then(response => response.json())
-      .then(() => {
-        form.reset();
-        document.getElementById("repaymentAmount").textContent = "MWK 0";
-        document.getElementById("successMsg").style.display = "block";
-        setTimeout(() => {
-          document.getElementById("successMsg").style.display = "none";
-        }, 4000);
-
+      const form = document.getElementById("sheetdb-form");
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+        })
+        .then(response => response.json())
+        .then(() => {
+          form.reset();
+          document.getElementById("repaymentAmount").textContent = "MWK 0";
+          document.getElementById("successMsg").style.display = "block";
+          setTimeout(() => {
+            document.getElementById("successMsg").style.display = "none";
+          }, 4000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
 
 
 
