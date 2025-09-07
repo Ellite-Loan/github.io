@@ -1,154 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loan Application Form</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        padding: 20px;
-      }
-      .form-container {
-        max-width: 600px;
-        margin: auto;
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        text-align: center;
-        color: #007bff;
-      }
-      label {
-        font-size: 16px;
-        font-weight: bold;
-        display: block;
-        margin-top: 10px;
-      }
-      input,
-      select,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-      button {
-        background: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        width: 100%;
-      }
-      button:hover {
-        background: #0056b3;
-      }
-      .checkbox-container {
-        display: flex;
-        align-items: center;
-      }
-      .checkbox-container input {
-        margin-right: 5px;
-      }
-    </style>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Application Form</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      padding: 30px;
+    }
+    .form-container {
+      max-width: 650px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: 600;
+      margin-top: 12px;
+      display: block;
+    }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border 0.3s;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border: 1px solid #007bff;
+      outline: none;
+    }
+    button {
+      margin-top: 20px;
+      background: #007bff;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      width: 100%;
+    }
+    button:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .checkbox-container label {
+      margin: 0;
+      margin-left: 5px;
+      font-size: 14px;
+      font-weight: normal;
+    }
+    #successMsg {
+      display: none;
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      text-align: center;
+      font-weight: bold;
+    }
+    #loanError {
+      font-size: 14px;
+      color: red;
+      margin-top: -5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Loan Application Form</h1>
+
     <form action="https://sheetdb.io/api/v1/e4m7mvlqs60k8" method="post" id="sheetdb-form">
-    <div class="form-container">
-      <h1>Loan Application Form</h1>
-      <form id="loanForm">
-        <!-- Basic Information -->
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="data[fullName]" required />
+      <!-- Basic Information -->
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="data[fullName]" required />
 
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="data[email]" required />
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="data[email]" required />
 
-        <label for="phone">Phone Number</label>
-        <input type="text" id="phone" name="data[phone]" required />
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" name="data[phone]" required />
 
-        <label for="address">Residential Address</label>
-        <textarea id="address" name="data[address]" required></textarea>
+      <label for="address">Residential Address</label>
+      <textarea id="address" name="data[address]" required></textarea>
 
-        <!-- Loan Details -->
-        <label for="loanAmount">Loan Amount Requested (MWK)</label>
-        <input
-          type="number"
-          id="loanAmount"
-          name="data[loanAmount]"
-          min="20000"
-          max="200000"
-          placeholder="Enter amount (20,000 - 200,000)"
-          oninput="calculateRepayment()"
-          required
-        />
-        <p id="loanError" style="color: red"></p>
+      <!-- Loan Details -->
+      <label for="loanAmount">Loan Amount Requested (MWK)</label>
+      <input
+        type="number"
+        id="loanAmount"
+        name="data[loanAmount]"
+        min="20000"
+        max="200000"
+        placeholder="Enter amount (20,000 - 200,000)"
+        oninput="calculateRepayment()"
+        required
+      />
+      <p id="loanError"></p>
 
-        <label for="loanDuration">Loan Duration</label>
-        <select
-          id="loanDuration"
-          name="data[loanDuration]"
-          onchange="calculateRepayment()"
-          required
-        >
-          <option value="1">One Week</option>
-          <option value="2">Two Weeks</option>
-          <option value="3">Three Weeks</option>
-          <option value="4">One Month</option>
-        </select>
+      <label for="loanDuration">Loan Duration</label>
+      <select id="loanDuration" name="data[loanDuration]" onchange="calculateRepayment()" required>
+        <option value="">--Select Duration--</option>
+        <option value="1">One Week</option>
+        <option value="2">Two Weeks</option>
+        <option value="3">Three Weeks</option>
+        <option value="4">One Month</option>
+      </select>
 
-        <p>
-          <strong>Repayment Amount:</strong>
-          <span id="repaymentAmount">MWK 0</span>
-        </p>
+      <p><strong>Repayment Amount:</strong> <span id="repaymentAmount">MWK 0</span></p>
 
-        <!-- Bank Details -->
-        <label for="bankName">Bank Name</label>
-        <select id="bankName" name="data[bankName]" required>
-          <option value="FDH">FDH</option>
-          <option value="NBS">NBS</option>
-          <option value="FCB">FCB</option>
-          <option value="Standard Bank">Standard Bank</option>
-          <option value="National Bank">National Bank</option>
-        </select>
+      <!-- Bank Details -->
+      <label for="bankName">Bank Name</label>
+      <select id="bankName" name="data[bankName]" required>
+        <option value="">--Select Bank--</option>
+        <option value="FDH">FDH</option>
+        <option value="NBS">NBS</option>
+        <option value="FCB">FCB</option>
+        <option value="Standard Bank">Standard Bank</option>
+        <option value="National Bank">National Bank</option>
+      </select>
 
-        <label for="bankAccount">Bank Account Name</label>
-        <input type="text" id="bankAccount" name="data[bankAccount]" required />
+      <label for="bankAccount">Bank Account Name</label>
+      <input type="text" id="bankAccount" name="data[bankAccount]" required />
 
-        <label for="accountNumber">Bank Account Number</label>
-        <input type="text" id="accountNumber" name="data[accountNumber]" required />
+      <label for="accountNumber">Bank Account Number</label>
+      <input type="text" id="accountNumber" name="data[accountNumber]" required />
 
-        <div class="checkbox-container">
-          <input type="checkbox" name="data[agreement]" required />
-          <label>I agree to the loan terms and conditions.</label>
-        </div>
+      <div class="checkbox-container">
+        <input type="checkbox" name="data[agreement]" required />
+        <label>I agree to the loan terms and conditions.</label>
+      </div>
 
-        <button type="submit">Submit Application</button>
-      </form>
-    </div>
+      <button type="submit">Submit Application</button>
+    </form>
 
-    <script>
-      vor form = document.getElementById('sheetdb Form');
-      form.addEventListener("submit", e => {
-        e.preventDefault();
-        fetch(form.action, {
-          method: "POST",
-          body: new FormData(document.getElementById('sheetdb Form')),
-        }).then(
-          response => response.json()
-            ).then((html) => {
-          // you can put any js code here
-          windows.open('d.html','_blank');
-        });
-      });
-    </script>
-  </body>
-</html>
+    <div id="successMsg">✅ Your application has been submitted successfully!</div>
+  </div>
+
+  <script>
+    function calculateRepayment() {
+      const amount = parseInt(document.getElementById("loanAmount").value);
+      const duration = parseInt(document.getElementById("loanDuration").value);
+      const error = document.getElementById("loanError");
+      const repaymentSpan = document.getElementById("repaymentAmount");
+
+      if (!amount || amount < 20000 || amount > 200000) {
+        error.textContent = "Amount must be between MWK 20,000 and 200,000.";
+        repaymentSpan.textContent = "MWK 0";
+        return;
+      } else {
+        error.textContent = "";
+      }
+
+      if (duration) {
+        // Example formula: add 10% per week
+        const repayment = amount + (amount * 0.1 * duration);
+        repaymentSpan.textContent = "MWK " + repayment.toLocaleString();
+      }
+    }
+
+    const form = document.getElementById("sheetdb-form");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+      })
+      .then(response => response.json())
+      .then(() => {
+        form.reset();
+        document.g
+
+
 
