@@ -7,29 +7,20 @@
   <meta name="description" content="Get loans quickly and easily with Blessed Elite Loans" />
   <title>Blessed Elite Loans</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { background: #f5f7fa; color: #333; line-height: 1.6; }
+    body { background: #f5f7fa; color: #333; line-height: 1.6; position: relative; }
 
-    /* Container */
     .container { max-width: 1200px; margin: auto; padding: 30px; }
 
-    /* Header */
-    .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; padding: 15px 0; }
-    .header a { color: #007bff; text-decoration: none; margin-right: 20px; font-weight: 500; transition: 0.3s; }
-    .header a:hover { color: #0056b3; }
-
-    /* Hero Video */
-    .video-container { width: 100%; height: 450px; border-radius: 20px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+    /* Video Hero */
+    .video-container { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
     video { width: 100%; height: 100%; object-fit: cover; }
 
     /* Main Heading */
     h1 { text-align: center; font-size: 36px; margin-bottom: 20px; color: #007bff; font-weight: 700; }
-
-    /* Description */
     .intro { text-align: center; margin-bottom: 40px; font-size: 18px; color: #555; }
 
     /* Loan Sections */
@@ -59,19 +50,24 @@
     .contact a:hover { color: #0056b3; text-decoration: underline; }
 
     /* Left Tab */
-    .left-tab { position: fixed; top: 20px; left: 20px; width: 220px; background: #ff5e5e; color: #fff; padding: 25px; border-radius: 15px; box-shadow: 4px 4px 20px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 20px; }
+    .left-tab { position: fixed; top: 50%; left: -240px; transform: translateY(-50%); width: 220px; background: #ff5e5e; color: #fff; padding: 25px; border-radius: 15px; box-shadow: 4px 4px 20px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 20px; transition: left 0.3s ease; z-index: 9999; }
+    .left-tab.show { left: 20px; }
     .left-tab h3 { font-size: 24px; font-weight: 700; }
     .left-tab a { color: #fff; text-decoration: none; font-size: 18px; }
     .left-tab a:hover { text-decoration: underline; }
     .left-tab .icon { font-size: 28px; color: #00ff00; }
 
+    /* Tap overlay for mobile */
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 998; display: none; }
+    .overlay.active { display: block; }
+
     /* Responsive */
-    @media(max-width: 992px) { .left-tab { display: none; } }
     @media(max-width: 768px) { .calculator input, .calculator select { width: 100%; } }
   </style>
 </head>
 <body>
-  <div class="left-tab">
+  <!-- Left Tab -->
+  <div class="left-tab" id="leftTab">
     <h3>Blessed Elite</h3>
     <a href="#">Feedback</a>
     <a href="#">1-Week Loan</a>
@@ -80,19 +76,10 @@
     <a href="#">1-Month Loan</a>
     <span class="icon">&#9743;</span> 265884385975
   </div>
+  <div class="overlay" id="overlay"></div>
 
   <div class="container">
-    <div class="header">
-      <div>
-        <a href="#">Feedback</a>
-        <a href="#">One Week Loans</a>
-        <a href="#">Two Week Loans</a>
-        <a href="#">Three Week Loans</a>
-        <a href="#">One Month Loans</a>
-      </div>
-      <div><a href="#calculator">Loan Calculator</a></div>
-    </div>
-
+    <!-- Hero Video -->
     <div class="video-container">
       <video autoplay muted loop>
         <source src="Images/Screen.mp4" type="video/mp4">
@@ -151,6 +138,7 @@
   </div>
 
   <script>
+    // Loan Calculator
     function calculateLoan() {
       let amount = document.getElementById("amount").value;
       let duration = document.getElementById("duration").value;
@@ -160,6 +148,20 @@
       let total = parseFloat(amount) + interest;
       document.getElementById("result").innerText = `Total Repayment: MWK ${total.toFixed(2)}`;
     }
+
+    // Show left tab on tap/click (works for mobile)
+    const leftTab = document.getElementById('leftTab');
+    const overlay = document.getElementById('overlay');
+
+    document.body.addEventListener('click', () => {
+      leftTab.classList.toggle('show');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      leftTab.classList.remove('show');
+      overlay.classList.remove('active');
+    });
   </script>
 </body>
 </html>
