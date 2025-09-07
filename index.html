@@ -1,282 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="keywords" content="Loans, Quick Loans, Easy Loans, Finance" />
-    <meta
-      name="description"
-      content="Get loans quickly and easily with Blessed Elite Loans"
-    />
-    <title>Blessed Elite Loans</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
-      body {
-        background-color: #f8f9fa;
-        color: #333;
-        padding: 20px;
-        display: flex;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="keywords" content="Loans, Quick Loans, Easy Loans, Finance" />
+  <meta name="description" content="Get loans quickly and easily with Blessed Elite Loans" />
+  <title>Blessed Elite Loans</title>
 
-      h1 {
-        text-align: center;
-        color: hsl(46, 100%, 50%);
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 15px;
-        font-style: oblique;
-      }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-      .header a {
-        color: white;
-        text-decoration: none;
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      .header a:hover {
-        text-decoration: underline;
-      }
-      .loan-section {
-        margin-bottom: 20px;
-        padding: 15px;
-        border-left: 10px solid #007bff; /* Increased the blue line */
-        background: #f1f3f5;
-        border-radius: 5px;
-      }
-      .loan-section h2 {
-        color: #0056b3;
-        font-size: 20px;
-        margin-bottom: 5px;
-      }
-      p {
-        font-size: 16px;
-        line-height: 1.6;
-      }
-      .contact,
-      .apply-btn {
-        text-align: center;
-        margin-top: 20px;
-      }
-      .apply-btn button {
-        background: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-      .video-container {
-        width: 100%;
-        height: 350px;
-        border-radius: 20px;
-        overflow: hidden;
-      }
-      video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .calculator {
-        margin-top: 20px;
-        padding: 20px;
-        background: #f1f3f5;
-        border-radius: 5px;
-        text-align: center;
-      }
-      .calculator input,
-      .calculator select {
-        padding: 10px;
-        margin: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 100%;
-      }
-      .calculator button {
-        background: #007bff;
-        color: white;
-        cursor: pointer;
-        width: 100%;
-      }
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: #f5f7fa; color: #333; line-height: 1.6; }
 
-      /* Left Tab Styles */
-      .left-tab {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 220px;
-        padding: 20px;
-        background-color: #ff5e5e;
-        color: white;
-        border-radius: 0 10px 10px 0;
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-      .f {
-        color: green;
-        font-size: 30px;
-      }
+    /* Container */
+    .container { max-width: 1200px; margin: auto; padding: 30px; }
 
-      .left-tab a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        margin-bottom: 10px;
-        display: block;
-      }
+    /* Header */
+    .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; padding: 15px 0; }
+    .header a { color: #007bff; text-decoration: none; margin-right: 20px; font-weight: 500; transition: 0.3s; }
+    .header a:hover { color: #0056b3; }
 
-      .left-tab a:hover {
-        text-decoration: underline;
-      }
+    /* Hero Video */
+    .video-container { width: 100%; height: 450px; border-radius: 20px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+    video { width: 100%; height: 100%; object-fit: cover; }
 
-      .left-tab h3 {
-        font-size: 22px;
-        font-weight: 600;
-        margin-bottom: 15px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <!-- Header Section -->
-      <div class="header">
-        <div>
-          <a href="#">Feedback</a>
-          <a href="#">One Week Loans</a>
-          <a href="#">Two Week Loans</a>
-          <a href="#">Three Week Loans</a>
-          <a href="#">One Month Loans</a>
-        </div>
-        <div>
-          <a href="#calculator">Loan Calculator</a>
-        </div>
+    /* Main Heading */
+    h1 { text-align: center; font-size: 36px; margin-bottom: 20px; color: #007bff; font-weight: 700; }
+
+    /* Description */
+    .intro { text-align: center; margin-bottom: 40px; font-size: 18px; color: #555; }
+
+    /* Loan Sections */
+    .loan-section { background: #fff; padding: 25px; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; border-left: 6px solid #007bff; }
+    .loan-section:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .loan-section h2 { font-size: 22px; color: #0056b3; margin-bottom: 10px; }
+    .loan-section p { font-size: 16px; color: #555; }
+
+    /* Calculator */
+    .calculator { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.05); margin: 40px 0; text-align: center; transition: transform 0.3s; }
+    .calculator:hover { transform: translateY(-5px); }
+    .calculator h2 { color: #007bff; margin-bottom: 15px; font-size: 26px; }
+    .calculator p { color: #555; margin-bottom: 20px; font-size: 16px; }
+    .calculator input, .calculator select { width: 80%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; transition: 0.3s; }
+    .calculator input:focus, .calculator select:focus { border-color: #007bff; box-shadow: 0 0 8px rgba(0,123,255,0.3); outline: none; }
+    #result { margin-top: 15px; font-size: 18px; font-weight: 600; color: #007bff; }
+
+    /* Apply Button */
+    .apply-btn { text-align: center; margin: 40px 0; }
+    .apply-btn a button { padding: 15px 30px; font-size: 20px; font-weight: 600; border-radius: 12px; background: linear-gradient(90deg,#007bff,#00c6ff); border: none; color: #fff; cursor: pointer; transition: 0.3s; }
+    .apply-btn a button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,123,255,0.3); }
+
+    /* Contact Section */
+    .contact { text-align: center; margin: 50px 0 20px; color: #555; }
+    .contact p { margin: 8px 0; font-size: 16px; }
+    .contact a { color: #007bff; text-decoration: none; font-weight: 500; }
+    .contact a:hover { color: #0056b3; text-decoration: underline; }
+
+    /* Left Tab */
+    .left-tab { position: fixed; top: 20px; left: 20px; width: 220px; background: #ff5e5e; color: #fff; padding: 25px; border-radius: 15px; box-shadow: 4px 4px 20px rgba(0,0,0,0.2); display: flex; flex-direction: column; gap: 20px; }
+    .left-tab h3 { font-size: 24px; font-weight: 700; }
+    .left-tab a { color: #fff; text-decoration: none; font-size: 18px; }
+    .left-tab a:hover { text-decoration: underline; }
+    .left-tab .icon { font-size: 28px; color: #00ff00; }
+
+    /* Responsive */
+    @media(max-width: 992px) { .left-tab { display: none; } }
+    @media(max-width: 768px) { .calculator input, .calculator select { width: 100%; } }
+  </style>
+</head>
+<body>
+  <div class="left-tab">
+    <h3>Blessed Elite</h3>
+    <a href="#">Feedback</a>
+    <a href="#">1-Week Loan</a>
+    <a href="#">2-Week Loan</a>
+    <a href="#">3-Week Loan</a>
+    <a href="#">1-Month Loan</a>
+    <span class="icon">&#9743;</span> 265884385975
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div>
+        <a href="#">Feedback</a>
+        <a href="#">One Week Loans</a>
+        <a href="#">Two Week Loans</a>
+        <a href="#">Three Week Loans</a>
+        <a href="#">One Month Loans</a>
       </div>
-
-      <div class="video-container">
-        <video autoplay muted loop>
-          <source src="Images/Screen.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      <h1>Welcome to Elite Loans</h1>
-
-      <p>
-        We offer loans in four categories to suit your financial needs with fast
-        access, flexible repayment, and fair interest rates.
-      </p>
-
-      <div class="loan-section">
-        <h2>One Week Loans - Quick Cash, Fast Relief!</h2>
-        <p>
-          In need of urgent funds? Our 1-week loans are perfect for unexpected
-          situations where time is crucial. With an easy and efficient process,
-          you can get the funds you need in no time. Pay back in just 7 days
-          with a competitive 15% interest rate.
-        </p>
-      </div>
-
-      <div class="loan-section">
-        <h2>Two Weeks Loan - Flexibility with Fair Interest</h2>
-        <p>
-          For those who need a bit of extra breathing room, our 2-week loans
-          offer the perfect balance between time and affordability. With a 20%
-          interest rate, you get quick access to funds with flexible terms.
-        </p>
-      </div>
-
-      <div class="loan-section">
-        <h2>Three Weeks Loan - Manage Your Payments with Ease</h2>
-        <p>
-          Facing a larger expense? Our 3-week loans provide ample time to pay
-          back with an attractive 25% interest rate. Get fast access to cash and
-          repay within 21 days stress-free.
-        </p>
-      </div>
-
-      <div class="loan-section">
-        <h2>One Month Loans - Extended Time for Bigger Needs</h2>
-        <p>
-          For larger expenses, our 1-month loans offer a 30% interest rate with
-          a 30-day repayment term. Perfect for home renovations, medical
-          procedures, or other significant financial needs.
-        </p>
-      </div>
-
-      <div class="calculator" id="calculator">
-        <h2>Loan Calculator</h2>
-        <p>
-          Wondering how much you'll need to repay? Let our Loan Calculator do
-          the math for you—plan ahead and borrow wisely!
-        </p>
-        <label for="amount">Loan Amount:</label>
-        <input
-          type="number"
-          id="amount"
-          placeholder="Enter amount"
-          oninput="calculateLoan()"
-        />
-        <label for="duration">Duration:</label>
-        <select id="duration" onchange="calculateLoan()">
-          <option value="1">One Week</option>
-          <option value="2">Two Weeks</option>
-          <option value="3">Three Weeks</option>
-          <option value="4">One Month</option>
-        </select>
-        <p id="result"></p>
-      </div>
-
-      <!-- Apply Now Button -->
-      <div class="apply-btn">
-        <a href="loan-application.html">
-          <button>Apply Now</button>
-        </a>
-      </div>
-
-      <div class="contact">
-        <p><span class="f">&#9743;</span> 265884385975 / 994785476</p>
-        <p>
-          <span>&#128233;</span>
-          <a href="mailto:safariblessings6@gmail.com"
-            >safariblessings6@gmail.com</a
-          >
-        </p>
-        <p>
-          <span class="fa-brands fa-whatsapp"></span>
-          <a href="https://wa.me/265994785476" target="_blank"
-            >Chat on WhatsApp</a
-          >
-        </p>
-      </div>
+      <div><a href="#calculator">Loan Calculator</a></div>
     </div>
 
-    <script>
-      function calculateLoan() {
-        let amount = document.getElementById("amount").value;
-        let duration = document.getElementById("duration").value;
-        if (!amount) {
-          document.getElementById("result").innerText = "";
-          return;
-        }
-        let interestRates = { 1: 0.15, 2: 0.2, 3: 0.25, 4: 0.3 };
-        let interest = amount * interestRates[duration];
-        let total = parseFloat(amount) + interest;
-        document.getElementById(
-  "result"
-).innerText = `Total Repayment: MWK ${total.toFixed(2)}`;
-      }
-    </script>
-  </body>
+    <div class="video-container">
+      <video autoplay muted loop>
+        <source src="Images/Screen.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <h1>Welcome to Blessed Elite Loans</h1>
+    <p class="intro">Fast, reliable, and flexible loans tailored to your financial needs. Borrow smart, repay easy!</p>
+
+    <!-- Loan Sections -->
+    <div class="loan-section">
+      <h2>One Week Loans</h2>
+      <p>Get quick cash with only 7 days to repay. Interest: 15%. Perfect for urgent needs.</p>
+    </div>
+    <div class="loan-section">
+      <h2>Two Weeks Loans</h2>
+      <p>Flexible repayment over 14 days with 20% interest. Ideal for short-term financial planning.</p>
+    </div>
+    <div class="loan-section">
+      <h2>Three Weeks Loans</h2>
+      <p>Pay back over 21 days with 25% interest. Great for moderate expenses.</p>
+    </div>
+    <div class="loan-section">
+      <h2>One Month Loans</h2>
+      <p>Extended 30-day repayment at 30% interest. Perfect for bigger financial needs.</p>
+    </div>
+
+    <!-- Loan Calculator -->
+    <div class="calculator" id="calculator">
+      <h2>Loan Calculator</h2>
+      <p>Estimate your repayment quickly and plan ahead.</p>
+      <label for="amount">Loan Amount:</label>
+      <input type="number" id="amount" placeholder="Enter amount" oninput="calculateLoan()" />
+      <label for="duration">Duration:</label>
+      <select id="duration" onchange="calculateLoan()">
+        <option value="1">One Week</option>
+        <option value="2">Two Weeks</option>
+        <option value="3">Three Weeks</option>
+        <option value="4">One Month</option>
+      </select>
+      <p id="result"></p>
+    </div>
+
+    <!-- Apply Now -->
+    <div class="apply-btn">
+      <a href="loan-application.html"><button>Apply Now</button></a>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact">
+      <p><span class="icon">&#9743;</span> 265884385975 / 994785476</p>
+      <p><span>&#128233;</span> <a href="mailto:safariblessings6@gmail.com">safariblessings6@gmail.com</a></p>
+      <p><a href="https://wa.me/265994785476" target="_blank">Chat on WhatsApp</a></p>
+    </div>
+  </div>
+
+  <script>
+    function calculateLoan() {
+      let amount = document.getElementById("amount").value;
+      let duration = document.getElementById("duration").value;
+      if (!amount) { document.getElementById("result").innerText = ""; return; }
+      let interestRates = { 1: 0.15, 2: 0.2, 3: 0.25, 4: 0.3 };
+      let interest = amount * interestRates[duration];
+      let total = parseFloat(amount) + interest;
+      document.getElementById("result").innerText = `Total Repayment: MWK ${total.toFixed(2)}`;
+    }
+  </script>
+</body>
 </html>
