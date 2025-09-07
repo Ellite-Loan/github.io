@@ -7,16 +7,17 @@
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #4facfe, #00f2fe);
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
       padding: 30px;
+      margin: 0;
     }
     .form-container {
       max-width: 650px;
       margin: auto;
       background: #fff;
-      padding: 30px;
+      padding: 35px;
       border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
       animation: fadeIn 0.8s ease-in-out;
     }
     @keyframes fadeIn {
@@ -26,12 +27,14 @@
     h1 {
       text-align: center;
       color: #007bff;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      font-size: 26px;
     }
     label {
       font-weight: 600;
       margin-top: 12px;
       display: block;
+      color: #333;
     }
     input,
     select,
@@ -41,19 +44,21 @@
       margin-top: 6px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      transition: border 0.3s;
+      transition: border 0.3s, box-shadow 0.3s;
+      font-size: 15px;
     }
     input:focus,
     select:focus,
     textarea:focus {
       border: 1px solid #007bff;
       outline: none;
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
     }
     button {
       margin-top: 20px;
-      background: #007bff;
+      background: linear-gradient(90deg, #007bff, #00c6ff);
       color: white;
-      padding: 12px;
+      padding: 14px;
       border: none;
       border-radius: 8px;
       font-size: 18px;
@@ -62,35 +67,37 @@
       width: 100%;
     }
     button:hover {
-      background: #0056b3;
+      background: linear-gradient(90deg, #0056b3, #0095d9);
       transform: translateY(-2px);
     }
     .checkbox-container {
       display: flex;
       align-items: center;
-      margin-top: 10px;
+      margin-top: 12px;
     }
     .checkbox-container label {
       margin: 0;
       margin-left: 5px;
       font-size: 14px;
       font-weight: normal;
+      color: #444;
     }
     #successMsg {
       display: none;
       margin-top: 20px;
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
       background: #d4edda;
       color: #155724;
       border: 1px solid #c3e6cb;
       text-align: center;
       font-weight: bold;
+      font-size: 16px;
     }
     #loanError {
       font-size: 14px;
       color: red;
-      margin-top: -5px;
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -121,13 +128,12 @@
         min="20000"
         max="200000"
         placeholder="Enter amount (20,000 - 200,000)"
-        oninput="calculateRepayment()"
         required
       />
       <p id="loanError"></p>
 
       <label for="loanDuration">Loan Duration</label>
-      <select id="loanDuration" name="data[loanDuration]" onchange="calculateRepayment()" required>
+      <select id="loanDuration" name="data[loanDuration]" required>
         <option value="">--Select Duration--</option>
         <option value="1">One Week</option>
         <option value="2">Two Weeks</option>
@@ -166,9 +172,10 @@
   </div>
 
   <script>
+    // Calculate repayment dynamically
     function calculateRepayment() {
-      const amount = parseInt(document.getElementById("loanAmount").value);
-      const duration = parseInt(document.getElementById("loanDuration").value);
+      const amount = Number(document.getElementById("loanAmount").value);
+      const duration = Number(document.getElementById("loanDuration").value);
       const error = document.getElementById("loanError");
       const repaymentSpan = document.getElementById("repaymentAmount");
 
@@ -180,13 +187,20 @@
         error.textContent = "";
       }
 
-      if (duration) {
-        // Example formula: add 10% per week
+      if (duration > 0) {
+        // Formula: add 10% per week
         const repayment = amount + (amount * 0.1 * duration);
         repaymentSpan.textContent = "MWK " + repayment.toLocaleString();
+      } else {
+        repaymentSpan.textContent = "MWK 0";
       }
     }
 
+    // Attach events for live update
+    document.getElementById("loanAmount").addEventListener("input", calculateRepayment);
+    document.getElementById("loanDuration").addEventListener("change", calculateRepayment);
+
+    // Handle form submission to Google Sheet
     const form = document.getElementById("sheetdb-form");
     form.addEventListener("submit", function(e) {
       e.preventDefault();
@@ -197,7 +211,13 @@
       .then(response => response.json())
       .then(() => {
         form.reset();
-        document.g
+        document.getElementById("repaymentAmount").textContent = "MWK 0";
+        document.getElementById("successMsg").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("successMsg").style.display = "none";
+        }, 4000);
+
+
 
 
 
